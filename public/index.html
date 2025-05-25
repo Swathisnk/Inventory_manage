@@ -1,89 +1,143 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <title>Add Product</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 500px;
-      margin: 30px auto;
-      padding: 20px;
-      background: #f9f9f9;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    label {
-      font-weight: bold;
-      margin-top: 10px;
-      display: block;
-    }
-    input[type="text"], input[type="number"] {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
+    * {
       box-sizing: border-box;
     }
-    button {
-      margin-top: 15px;
-      padding: 10px;
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fceabb, #f8b500);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .form-card {
+      background: #ffffff;
+      padding: 35px 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
       width: 100%;
-      background-color: #007BFF;
+      max-width: 500px;
+      transition: transform 0.3s ease;
+    }
+
+    .form-card:hover {
+      transform: translateY(-5px);
+    }
+
+    h1 {
+      text-align: center;
+      color: #444;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      background: #f9f9f9;
+      transition: 0.3s;
+    }
+
+    .form-control:focus {
+      border-color: #f8b500;
+      background: #fffef3;
+      outline: none;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      font-weight: 600;
+      background: linear-gradient(to right, #ff8c00, #ffa500);
       border: none;
       color: white;
-      font-size: 16px;
-      border-radius: 4px;
+      border-radius: 12px;
       cursor: pointer;
+      transition: 0.3s ease;
     }
+
     button:hover {
-      background-color: #0056b3;
+      background: linear-gradient(to right, #e07b00, #f5a400);
     }
+
     #message {
-      margin-top: 15px;
-      font-weight: bold;
       text-align: center;
+      margin-top: 18px;
+      font-weight: 600;
     }
+
     .link {
       margin-top: 20px;
-      display: block;
       text-align: center;
     }
+
     .link a {
+      color: #ff8c00;
       text-decoration: none;
-      color: #007BFF;
+      font-weight: 600;
     }
+
     .link a:hover {
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <h1>Add New Product</h1>
-  <form id="productForm">
-    <label>Name:</label>
-    <input type="text" id="name" required>
+  <div class="form-card">
+    <h1>Add New Product</h1>
+    <form id="productForm">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input class="form-control" type="text" id="name" required />
+      </div>
 
-    <label>Description:</label>
-    <input type="text" id="description">
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <input class="form-control" type="text" id="description" />
+      </div>
 
-    <label>Price:</label>
-    <input type="number" id="price" required>
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input class="form-control" type="number" id="price" required />
+      </div>
 
-    <label>Quantity:</label>
-    <input type="number" id="quantity" required>
+      <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input class="form-control" type="number" id="quantity" required />
+      </div>
 
-    <button type="submit">Add Product</button>
-  </form>
+      <button type="submit">Add Product</button>
+    </form>
 
-  <p id="message"></p>
+    <p id="message"></p>
 
-  <div class="link">
-    <a href="products.html">View All Products</a>
+    <div class="link">
+      <a href="products.html">📦 View All Products</a>
+    </div>
   </div>
 
   <script>
@@ -110,16 +164,16 @@
         });
 
         if (res.ok) {
-          message.textContent = 'Product added successfully!';
+          message.textContent = '✅ Product added successfully!';
           message.style.color = 'green';
           form.reset();
         } else {
           const data = await res.json();
-          message.textContent = 'Error: ' + (data.message || 'Failed to add product');
+          message.textContent = '❌ Error: ' + (data.message || 'Failed to add product');
           message.style.color = 'red';
         }
       } catch (error) {
-        message.textContent = 'Error: ' + error.message;
+        message.textContent = '❌ Error: ' + error.message;
         message.style.color = 'red';
       }
     });
